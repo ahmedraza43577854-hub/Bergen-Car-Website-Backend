@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// A customer inquiry from any site form (contact, sell, trade, financing, etc.)
+model Lead {
+  id        String   @id @default(cuid())
+  type      String
+  name      String
+  email     String?
+  phone     String?
+  payload   Json
+  createdAt DateTime @default(now())
+
+  @@index([type])
+  @@index([createdAt])
+  @@index([email])
+}
+
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
