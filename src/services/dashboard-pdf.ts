@@ -207,7 +207,7 @@ export function renderInquiriesPdf(
         .stroke();
       doc.fillColor(MUTED).font("Helvetica").fontSize(8);
       doc.text(
-        `Generated ${meta.generatedAt.toLocaleString("en-US")}  ·  412 Route 46, Lodi, NJ  ·  Confidential`,
+        `Generated ${meta.generatedAt.toLocaleString("en-US")}  ·  22 US 46 East, Lodi, NJ  ·  Confidential`,
         MARGIN,
         PAGE_HEIGHT - 28,
         { width: CONTENT_WIDTH - 80 }

@@ -86,7 +86,21 @@ export function isFormerPolice(model: string, trim: string): boolean {
   const haystack = normalize(`${model} ${trim}`);
   return (
     containsPhrase(haystack, "police interceptor") ||
-    /\bppv\b/.test(haystack)
+    containsPhrase(haystack, "police pursuit") ||
+    /\bppv\b/.test(haystack) ||
+    /\bpolice\b/.test(haystack)
+  );
+}
+
+export function isHandicapAccessible(model: string, trim: string): boolean {
+  const haystack = normalize(`${model} ${trim}`);
+  return (
+    containsPhrase(haystack, "wheelchair") ||
+    containsPhrase(haystack, "handicap") ||
+    containsPhrase(haystack, "braun") ||
+    containsPhrase(haystack, "mobility") ||
+    containsPhrase(haystack, "side entry") ||
+    containsPhrase(haystack, "rear entry")
   );
 }
 
@@ -121,8 +135,11 @@ export function mapUpstreamVehicle(raw: UpstreamVehicle): InventoryVehicle {
     exteriorColor: (raw.exteriorColor ?? "").trim(),
     mpg: (raw.mpg ?? "").trim(),
     image: photos[0] ?? PLACEHOLDER_IMAGE,
+    photos,
     commercial: isCommercial(bodyStyle, model, trim),
     formerPolice: isFormerPolice(model, trim),
     luxury: isLuxuryMake(raw.make ?? ""),
+    handicapAccessible: isHandicapAccessible(model, trim),
+    vin: (raw.vin ?? "").trim(),
   };
 }

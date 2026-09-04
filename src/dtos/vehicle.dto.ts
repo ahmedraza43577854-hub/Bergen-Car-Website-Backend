@@ -43,10 +43,14 @@ export type InventoryVehicle = {
   exteriorColor: string;
   mpg: string;
   image: string;
+  photos: string[];
   tag?: VehicleTag;
   commercial: boolean;
   formerPolice: boolean;
   luxury: boolean;
+  handicapAccessible: boolean;
+  /** VIN as reported by AutoSalesReviews. Empty string if upstream omitted it. */
+  vin: string;
 };
 
 export const LUXURY_MAKES = new Set([
@@ -79,4 +83,5 @@ export type UpstreamVehicle = {
   exteriorColor?: string | null;
   mpg?: string | null;
   photos?: string[] | null;
+  vin?: string | null;
 };
