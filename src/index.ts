@@ -1,4 +1,5 @@
 import "dotenv/config";
+// PIPELINE_SMOKE_TEST — temporary marker; will be reverted after deploy check
 import app from "./app";
 import { env, isEmailConfigured } from "./config/env";
 import { prisma } from "./lib/prisma";
