@@ -10,6 +10,8 @@ const TYPE_LABEL: Record<CreateLeadBody["type"], string> = {
   sell: "Sell your car",
   trade: "Trade-in",
   financing: "Financing / pre-qualification",
+  "credit-application": "Credit application",
+  "business-application": "Business / fleet application",
   service: "Service appointment",
   "test-drive": "Test drive",
 };
@@ -43,7 +45,12 @@ function leadRows(input: CreateLeadBody): Array<[string, string]> {
         ["Mileage", input.mileage],
         ["Condition", input.condition],
         ["VIN", compact(input.vin)],
-        ["ZIP", compact(input.zip)]
+        ["ZIP", compact(input.zip)],
+        ["Accidents", compact(input.accidents)],
+        ["Paint work", compact(input.paintWork)],
+        ["Existing damage", compact(input.existingDamage)],
+        ["Lienholder", compact(input.lienholder)],
+        ["Notes", compact(input.notes)]
       );
       break;
     case "financing":
@@ -52,6 +59,44 @@ function leadRows(input: CreateLeadBody): Array<[string, string]> {
         ["Income", input.income],
         ["Housing", input.housing],
         ["Credit", input.credit]
+      );
+      break;
+    case "business-application":
+      rows.push(
+        ["Business name", input.businessName],
+        ["Business type", input.businessType],
+        ["Tax ID", compact(input.taxId)],
+        ["Years in business", compact(input.yearsInBusiness)],
+        ["Address", input.address],
+        ["City", input.city],
+        ["State", compact(input.state)],
+        ["ZIP", input.zip],
+        ["Fleet size", compact(input.fleetSize)],
+        ["Vehicles needed", input.vehicleNeed],
+        ["Notes", compact(input.notes)]
+      );
+      break;
+    case "credit-application":
+      rows.push(
+        ["Date of birth", compact(input.dateOfBirth)],
+        ["Address", input.address],
+        ["City", input.city],
+        ["State", input.state],
+        ["ZIP", input.zip],
+        ["Housing", input.housing],
+        ["Housing payment", compact(input.housingPayment)],
+        ["Employment", input.employment],
+        ["Employer", compact(input.employer)],
+        ["Time employed", compact(input.timeEmployed)],
+        ["Income", input.income],
+        ["Credit", input.credit],
+        ["Co-signer", compact(input.cosigner)],
+        ["Purchase timeframe", compact(input.purchaseTimeframe)],
+        ["Preferred contact", compact(input.preferredContact)],
+        ["Vehicle ID", compact(input.vehicleId)],
+        ["Vehicle", compact(input.vehicleDescription)],
+        ["Notes", compact(input.notes)],
+        ["Full application", compact(input.message)]
       );
       break;
     case "service":

@@ -6,6 +6,8 @@ export const FORM_LABELS: Record<LeadType | "newsletter", string> = {
   sell: "Sell your car",
   trade: "Trade-in",
   financing: "Financing",
+  "credit-application": "Credit application",
+  "business-application": "Business / fleet application",
   service: "Service",
   "test-drive": "Test drive",
   newsletter: "Newsletter",

@@ -6,6 +6,8 @@ export const LEAD_TYPES = [
   "sell",
   "trade",
   "financing",
+  "credit-application",
+  "business-application",
   "service",
   "test-drive",
 ] as const;
@@ -116,6 +118,11 @@ const vehicleLeadFields = {
   trim: optionalText,
   vin: optionalText,
   zip: optionalText,
+  accidents: optionalText,
+  paintWork: optionalText,
+  existingDamage: optionalText,
+  lienholder: optionalText,
+  notes: optionalText,
 };
 
 const sellSchema = z.object({
@@ -137,6 +144,47 @@ const financingSchema = z.object({
   income: requiredText("Income is required"),
   housing: requiredText("Housing status is required"),
   credit: requiredText("Credit range is required"),
+});
+
+const businessApplicationSchema = z.object({
+  type: z.literal("business-application"),
+  ...contactFields,
+  businessName: requiredText("Business name is required"),
+  businessType: requiredText("Business type is required"),
+  taxId: optionalText,
+  yearsInBusiness: optionalText,
+  address: requiredText("Address is required"),
+  city: requiredText("City is required"),
+  state: optionalText,
+  zip: requiredText("ZIP code is required"),
+  fleetSize: optionalText,
+  vehicleNeed: requiredText("Vehicle need is required"),
+  notes: optionalText,
+});
+
+const creditApplicationSchema = z.object({
+  type: z.literal("credit-application"),
+  ...contactFields,
+  dateOfBirth: optionalText,
+  address: requiredText("Address is required"),
+  city: requiredText("City is required"),
+  state: requiredText("State is required"),
+  zip: requiredText("ZIP code is required"),
+  housing: requiredText("Housing status is required"),
+  housingPayment: optionalText,
+  employment: requiredText("Employment status is required"),
+  employer: optionalText,
+  timeEmployed: optionalText,
+  // Full apps authorize a credit pull — self-reported range is optional (pre-qual form still requires it)
+  income: optionalText,
+  credit: optionalText,
+  cosigner: optionalText,
+  purchaseTimeframe: optionalText,
+  preferredContact: optionalText,
+  notes: optionalText,
+  message: optionalText,
+  vehicleId: optionalText,
+  vehicleDescription: optionalText,
 });
 
 const appointmentFields = {
@@ -173,6 +221,8 @@ export const createLeadBodySchema = z
     sellSchema,
     tradeSchema,
     financingSchema,
+    creditApplicationSchema,
+    businessApplicationSchema,
     serviceSchema,
     testDriveSchema,
   ])
