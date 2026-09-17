@@ -37,11 +37,16 @@ if [[ ! -f "$APP_DIR/.env" ]]; then
   exit 1
 fi
 
-echo "==> npm ci @ $(git rev-parse --short HEAD)"
-npm ci
+if ! command -v yarn >/dev/null 2>&1; then
+  echo "==> installing yarn globally"
+  npm install -g yarn@1.22.22
+fi
+
+echo "==> yarn install --frozen-lockfile @ $(git rev-parse --short HEAD)"
+yarn install --frozen-lockfile
 
 echo "==> prisma generate + tsc"
-npm run build
+yarn build
 
 if pm2 describe "$PM2_NAME" >/dev/null 2>&1; then
   pm2 restart "$PM2_NAME" --update-env
